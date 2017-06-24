@@ -19,13 +19,13 @@
             android:text="Odkurzanie"
             android:textAlignment="center" />
         <Button
-            android:id="@+id/buttonStart"
+            android:id="@+id/btnStart"
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:text="Włącz" />
 
         <Button
-            android:id="@+id/buttonStop"
+            android:id="@+id/btnStop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Wyłącz" />
