@@ -17,7 +17,7 @@ public class MusicService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        int resId = R.raw.odkurzacz_4_16;
+        int resId = R.raw.odkurzacz45;
         player = MediaPlayer.create(this,
                 resId);
         player.setLooping(true);
