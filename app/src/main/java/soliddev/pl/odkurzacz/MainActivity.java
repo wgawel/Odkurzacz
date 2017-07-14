@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btnStart;
     private Button btnStop;
+    private Button btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,11 +19,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
+        btnClose = (Button) findViewById(R.id.btnClose);
 
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
+        btnClose.setOnClickListener(this);
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
+        btnClose.setEnabled(true);
     }
 
     @Override
@@ -37,6 +41,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             stopService(new Intent(this, MusicService.class));
             btnStart.setEnabled(true);
             btnStop.setEnabled(false);
+        } else if (view == btnClose) {
+            //stopping service
+            stopService(new Intent(this, MusicService.class));
+            // close app
+            moveTaskToBack(true);
+            finish();
         }
     }
 }
