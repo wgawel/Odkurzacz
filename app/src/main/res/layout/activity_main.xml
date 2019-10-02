@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
+    android:configChanges="orientation|keyboardHidden"
     tools:context="soliddev.pl.odkurzacz.MainActivity">
 
     <LinearLayout
