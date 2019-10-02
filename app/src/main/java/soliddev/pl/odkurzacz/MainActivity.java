@@ -8,6 +8,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String BTN_STATE = "BTN_STATE";
     private Button btnStart;
     private Button btnStop;
     private Button btnClose;
@@ -28,6 +29,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStop.setEnabled(false);
         btnClose.setEnabled(true);
     }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        boolean[] btnState = savedInstanceState.getBooleanArray(BTN_STATE);
+        btnStart.setEnabled(btnState[0]);
+        btnStop.setEnabled(btnState[1]);
+        btnClose.setEnabled(btnState[2]);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        boolean[] btnState = {btnStart.isEnabled(), btnStop.isEnabled(), btnClose.isEnabled()};
+        outState.putBooleanArray(BTN_STATE, btnState);
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
+    }
+
 
     @Override
     public void onClick(View view) {
