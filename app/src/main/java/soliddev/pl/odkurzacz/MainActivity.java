@@ -2,12 +2,14 @@ package soliddev.pl.odkurzacz;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnStart;
     private Button btnStop;
     private Button btnClose;
+    private Button btnBatterySettings;
     private Switch switchNightMode;
     private View generalLayout;
     private TextView titleLabel;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnClose = (Button) findViewById(R.id.btnClose);
+        btnBatterySettings = (Button) findViewById(R.id.btnBatterySettings);
         switchNightMode = (Switch) findViewById(R.id.switchNightMode);
         generalLayout = (View) findViewById(R.id.generalLayout);
         titleLabel = (TextView) findViewById(R.id.titleLabel);
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
         btnClose.setOnClickListener(this);
+        btnBatterySettings.setOnClickListener(this);
         switchNightMode.setOnCheckedChangeListener(this);
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
@@ -91,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // close app
             moveTaskToBack(true);
             finish();
+        } else if (view == btnBatterySettings) {
+            startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
+            Toast.makeText(this,
+                    "Wyświetl wszystkie aplikacje, znajdź Odkurzacz i wyłącz optymalizację baterii.",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

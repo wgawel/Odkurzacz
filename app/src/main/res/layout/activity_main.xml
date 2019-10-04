@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/generalLayout"
     android:layout_width="match_parent"
@@ -75,6 +74,12 @@
             android:textColor="#3F51B5"
             android:autoLink="web"
             android:linksClickable="true"/>
+
+        <Button
+            android:id="@+id/btnBatterySettings"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:text="Ustawienia oszczędzania baterii" />
     </LinearLayout>
 
 </RelativeLayout>
