@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Switch switchNightMode;
     private View generalLayout;
     private TextView titleLabel;
+    private TextView downloadLatestLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switchNightMode = (Switch) findViewById(R.id.switchNightMode);
         generalLayout = (View) findViewById(R.id.generalLayout);
         titleLabel = (TextView) findViewById(R.id.titleLabel);
+        downloadLatestLabel = (TextView) findViewById(R.id.downloadLatestLabel);
 
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
@@ -105,11 +107,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         generalLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundNightMode));
         switchNightMode.setTextColor(getResources().getColor(R.color.colorControllerTextNightMode));
         titleLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNightMode));
+        downloadLatestLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNightMode));
     }
 
     private void switchToNotNightMode() {
         generalLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundNotNightMode));
         switchNightMode.setTextColor(getResources().getColor(R.color.colorControllerTextNotNightMode));
         titleLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNotNightMode));
+        downloadLatestLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNotNightMode));
     }
 }
