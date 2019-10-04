@@ -1,17 +1,23 @@
 package soliddev.pl.odkurzacz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String BTN_STATE = "BTN_STATE";
     private Button btnStart;
     private Button btnStop;
     private Button btnClose;
+    private Switch switchNightMode;
+    private View generalLayout;
+    private TextView titleLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         btnClose = (Button) findViewById(R.id.btnClose);
+        switchNightMode = (Switch) findViewById(R.id.switchNightMode);
+        generalLayout = (View) findViewById(R.id.generalLayout);
+        titleLabel = (TextView) findViewById(R.id.titleLabel);
 
         btnStart.setOnClickListener(this);
         btnStop.setOnClickListener(this);
         btnClose.setOnClickListener(this);
+        switchNightMode.setOnCheckedChangeListener(this);
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
         btnClose.setEnabled(true);
@@ -36,11 +46,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnStart.setEnabled(btnState[0]);
         btnStop.setEnabled(btnState[1]);
         btnClose.setEnabled(btnState[2]);
+
+        boolean nightMode = btnState[3];
+        switchNightMode.setChecked(nightMode);
+        if (nightMode) {
+            switchToNightMode();
+        } else {
+            switchToNotNightMode();
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        boolean[] btnState = {btnStart.isEnabled(), btnStop.isEnabled(), btnClose.isEnabled()};
+        boolean[] btnState = {
+                btnStart.isEnabled(),
+                btnStop.isEnabled(),
+                btnClose.isEnabled(),
+                switchNightMode.isChecked()
+        };
         outState.putBooleanArray(BTN_STATE, btnState);
 
         // call superclass to save any view hierarchy
@@ -67,5 +90,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             moveTaskToBack(true);
             finish();
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            switchToNightMode();
+        } else {
+            switchToNotNightMode();
+        }
+    }
+
+    private void switchToNightMode() {
+        generalLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundNightMode));
+        switchNightMode.setTextColor(getResources().getColor(R.color.colorControllerTextNightMode));
+        titleLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNightMode));
+    }
+
+    private void switchToNotNightMode() {
+        generalLayout.setBackgroundColor(getResources().getColor(R.color.colorBackgroundNotNightMode));
+        switchNightMode.setTextColor(getResources().getColor(R.color.colorControllerTextNotNightMode));
+        titleLabel.setTextColor(getResources().getColor(R.color.colorControllerTextNotNightMode));
     }
 }

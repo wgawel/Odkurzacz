@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBackgroundNightMode">#000000</color>
+    <color name="colorBackgroundNotNightMode">#FFFFFF</color>
+    <color name="colorControllerTextNotNightMode">#000000</color>
+    <color name="colorControllerTextNightMode">#F7F7F7</color>
 </resources>

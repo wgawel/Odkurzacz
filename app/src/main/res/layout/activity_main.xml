@@ -2,39 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/generalLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackgroundNotNightMode"
     tools:context="soliddev.pl.odkurzacz.MainActivity">
 
     <LinearLayout
+        android:id="@+id/controllerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
+        <Switch
+            android:id="@+id/switchNightMode"
+            android:layout_width="151dp"
+            android:layout_height="wrap_content"
+            android:switchPadding="5dp"
+            android:text="Tryb nocny"
+            android:textAlignment="viewEnd" />
+
         <TextView
+            android:id="@+id/titleLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Odkurzanie"
             android:textAlignment="center" />
+
         <Button
             android:id="@+id/btnStart"
             android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:text="Włącz" />
+            android:layout_height="152dp"
+            android:text="Włącz"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnStop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wyłącz" />
+            android:text="Wyłącz"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btnClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Zamknij" />
+            android:text="Zamknij"
+            android:textSize="24sp" />
 
     </LinearLayout>
+
 </RelativeLayout>
