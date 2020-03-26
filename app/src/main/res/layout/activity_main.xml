@@ -44,6 +44,33 @@
             android:text="Wyłącz"
             android:textSize="24sp" />
 
+        <LinearLayout
+            android:id="@+id/controllerLayoutDelayedStop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnDelayedStop"
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:text="Wyłącz za 15 minut"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/btnDelayedStopDecrease"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="24sp" />
+            <Button
+                android:id="@+id/btnDelayedStopIncrease"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textSize="24sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btnClose"
             android:layout_width="match_parent"
