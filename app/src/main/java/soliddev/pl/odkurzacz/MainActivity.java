@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView downloadLatestLabel;
     private int delayedStopTimerDefaultValue = 15*60000;
     private int delayedStopTimer = delayedStopTimerDefaultValue;
+    private int delayedStopTimerStep = 60000;
+    private boolean delayedStopRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switchNightMode.setOnCheckedChangeListener(this);
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
+        btnDelayedStop.setEnabled(false);
         btnClose.setEnabled(true);
 
         delayedStopTimer = delayedStopTimerDefaultValue;
+        updateDelayedStopLabel();
     }
 
     @Override
@@ -103,63 +107,93 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnStart) {
-            //starting service
-            startService(new Intent(this, MusicService.class));
-            btnStart.setEnabled(false);
-            btnStop.setEnabled(true);
+            actionStart();
         } else if (view == btnStop) {
-            stopAction();
+            actionStop();
         } else if (view == btnClose) {
-            //stopping service
-            stopService(new Intent(this, MusicService.class));
-            // close app
-            moveTaskToBack(true);
-            finish();
+            actionClose();
         } else if (view == btnDelayedStop) {
-            delayedStopAction();
+            actionDelayedStop();
         } else if (view == btnDelayedStopDecrease) {
-            delayedStopTimer -= 60000;
+            actionDelayedStopDecrease();
         } else if (view == btnDelayedStopIncrease) {
-            delayedStopTimer += 60000;
+            actionDelayedStopInrease();
         } else if (view == btnBatterySettings) {
-            startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
-            Toast.makeText(this,
-                    "Wyświetl wszystkie aplikacje, znajdź Odkurzacz i wyłącz optymalizację baterii.",
-                    Toast.LENGTH_LONG).show();
+            actionBatterySettings();
         }
     }
 
-    private void stopAction() {
+    private void actionDelayedStopInrease() {
+        delayedStopTimer += delayedStopTimerStep;
+        updateDelayedStopLabel();
+    }
+
+    private void actionDelayedStopDecrease() {
+        delayedStopTimer -= delayedStopTimerStep;
+        updateDelayedStopLabel();
+    }
+
+    private void actionBatterySettings() {
+        startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
+        Toast.makeText(this,
+                "Wyświetl wszystkie aplikacje, znajdź Odkurzacz i wyłącz optymalizację baterii.",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void actionStart() {
+        //starting service
+        startService(new Intent(this, MusicService.class));
+        btnStart.setEnabled(false);
+        btnStop.setEnabled(true);
+        btnDelayedStop.setEnabled(true);
+
+    }
+
+    private void actionClose() {
+        //stopping service
+        stopService(new Intent(this, MusicService.class));
+        // close app
+        moveTaskToBack(true);
+        finish();
+    }
+
+    private void actionStop() {
         //stopping service
         stopService(new Intent(this, MusicService.class));
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
+        btnDelayedStop.setEnabled(false);
+
+        delayedStopRunning = false;
+        delayedStopTimer = delayedStopTimerDefaultValue;
     }
 
-    private void delayedStopAction() {
+    private void actionDelayedStop() {
+        delayedStopRunning = true;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 delayedStopTimer -= 1000;
 
-                int delayedStopTimerInSeconds = delayedStopTimer/1000;
+                updateDelayedStopLabel();
 
-                long minutes = TimeUnit.SECONDS.toMinutes(delayedStopTimerInSeconds);
-                long seconds = TimeUnit.SECONDS.toSeconds(delayedStopTimerInSeconds) - (TimeUnit.SECONDS.toMinutes(delayedStopTimerInSeconds) *60);
-
-                String label = "Wyłączenie za "+String.format("%02d:%02d", minutes, seconds);
-
-                btnDelayedStop.setText(label);
-
-                if ( delayedStopTimer <= 0 ) {
-                    stopAction();
-                    delayedStopTimer = delayedStopTimerDefaultValue;
+                if ( delayedStopTimer <= 0 || !delayedStopRunning) {
+                    actionStop();
                 } else {
-                    delayedStopAction();
+                    actionDelayedStop();
                 }
             }
         }, 1000);
+    }
+
+    private void updateDelayedStopLabel() {
+        int delayedStopTimerInSeconds = delayedStopTimer/1000;
+
+        long minutes = TimeUnit.SECONDS.toMinutes(delayedStopTimerInSeconds);
+        long seconds = TimeUnit.SECONDS.toSeconds(delayedStopTimerInSeconds) - (TimeUnit.SECONDS.toMinutes(delayedStopTimerInSeconds) *60);
+
+        btnDelayedStop.setText(( delayedStopRunning ? "Wyłączenie za " : "Wyłącz za ") +String.format("%02d:%02d", minutes, seconds));
     }
 
     @Override

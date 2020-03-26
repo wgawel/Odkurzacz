@@ -33,6 +33,6 @@ public class MusicService extends Service {
     public void onDestroy() {
         super.onDestroy();
         //stopping the player when service is destroyed
-        player.stop();
+        player.stop(2500);
     }
 }
