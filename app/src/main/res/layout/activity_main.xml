@@ -52,21 +52,24 @@
 
             <Button
                 android:id="@+id/btnDelayedStop"
-                android:layout_width="307dp"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight = "1"
                 android:text="Wyłącz za 15 minut"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Button
                 android:id="@+id/btnDelayedStopDecrease"
                 android:layout_width="52dp"
-                android:layout_height="wrap_content"
+                android:layout_weight = "0"
+                android:layout_height="fill_parent"
                 android:text="-"
                 android:textSize="24sp" />
             <Button
                 android:id="@+id/btnDelayedStopIncrease"
                 android:layout_width="52dp"
-                android:layout_height="wrap_content"
+                android:layout_weight = "0"
+                android:layout_height="fill_parent"
                 android:text="+"
                 android:textSize="24sp" />
         </LinearLayout>
