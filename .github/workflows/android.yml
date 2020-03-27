@@ -22,5 +22,5 @@ jobs:
     - name: Upload latest APK
       uses: actions/upload-artifact@v1
       with:
-        name: app
-        path: app/build/outputs/apk/debug/odkurzacz-latest.apk
+        name: app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
